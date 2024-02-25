@@ -1,0 +1,54 @@
+{% load static %}
+{% load tz %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}
+      {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{% static "css/projects.css" %}"/>
+  </head>
+  <body>
+    <header>
+      {% if user.is_authenticated %}
+        <div class="welcome">
+        {% block welcome%}
+        {% endblock welcome %}
+
+        {% block today %}
+        {% endblock today %}
+
+        </div>
+      {% endif %}
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a href={% url "show_my_tasks" %}>My tasks</a></li>
+                <li><a href={% url "list_projects" %}>My projects</a></li>
+                {% if user.is_authenticated and user.is_superuser %}
+                <li><a href={% url "requests_list" %}> My messages {% block messages %}  {% endblock messages %} </a></li>
+                {% endif %}
+                <li><a href={% url "logout" %}>Logout</a></li>
+                {% else %}
+                <div class="loginpage">
+                <li><a href={% url "login" %}>login</a></li>
+                <li><a href={% url "signup" %}>signup</a></li>
+
+                </div>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+    {% block content %}
+    {% endblock content %}
+    </main>
+    {% block footer %}
+    {% endblock footer %}
+  </body>
+</html>

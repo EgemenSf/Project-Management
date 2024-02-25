@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+      {% block title %}Create Project{% endblock title %}
+
+      {% block content %}
+      <div class="project-form">
+          <form method="post">
+          <h1>Request for an exist project</h1>
+          {% csrf_token %}
+          <div class="forms">
+          {{ request_form.as_p }}
+          </div>
+          <button>Request</button>
+          </form>
+      </div>
+      {% endblock content %}

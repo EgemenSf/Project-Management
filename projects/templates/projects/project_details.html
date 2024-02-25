@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+        {% block title %} Project {% endblock title %}
+
+
+        {% block content %}
+   <div class="project-detail">
+      <div  class="project_name"><h1>{{project.name}}</h1></div>
+      <p>{{project.description}}</p>
+      <h2>Tasks</h2>
+      {% if user.is_authenticated and user.is_superuser %}
+      <p class="create_task"><a href={% url "create_task" %}>Create a new task</a></p>
+      {% endif %}
+      {% if project.tasks.all|length > 0 %}
+      <table class="project_details">
+        <thead>
+         <tr>
+            <th>Name</th>
+            <th>Assignee</th>
+            <th>Start date</th>
+            <th>Due date</th>
+            <th>Is completed</th>
+         </tr>
+        </thead>
+         <tbody>
+            {% for task in project.tasks.all %}
+            <tr>
+                <td>{{task.name}}</td>
+                <td>{{task.assignee}}</td>
+                <td>{{task.start_date}}</td>
+                <td>{{task.due_date}}</td>
+                <td>{{task.is_completed|yesno:"✅,❌"}}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% else %}
+      <p class="info">This project has no tasks!</p>
+    {% endif %}
+   </div>
+    {% endblock content %}

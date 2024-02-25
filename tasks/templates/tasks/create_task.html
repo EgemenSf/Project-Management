@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+        {% block title %}Create Project{% endblock title %}
+
+        {% block content %}
+        <div class="task-form">
+            <form method="post">
+            <h1>Create a new task</h1>
+            {% csrf_token %}
+            {{ create_task_form.as_p }}
+            <button>Create</button>
+           </form>
+        <div>
+      {% endblock content %}

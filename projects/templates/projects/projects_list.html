@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+
+        {% block title %}Tracker{% endblock title %}
+
+        {% block welcome %}
+        <h4>👋 Welcome, {{ user.username }}</h4>
+        {% endblock welcome %}
+
+        {% block today %}
+         <h4>🗓️ {{ today|date:"F j, Y " }}</h4>
+        {% endblock today %}
+
+        {% block messages %} {{requests_object.all.count}} {% endblock messages %}
+
+        {% block content %}
+<div class="project-list">
+   <div class="main">
+      <h1>My Projects</h1>
+   </div>
+      <div>
+        <p class="new_project_link"><a href={% url "create_project" %}>Create a new project</a></p>
+      </div>
+      {% if projects|length == 0 %}
+      <p class="info">You are not assigned to any projects!</p>
+      {% else %}
+      <table class="project_table">
+        <thead>
+         <tr>
+            <th>Name</th>
+            <th>Number of tasks</th>
+         </tr>
+        </thead>
+         <tbody>
+            {% for project in projects.all %}
+            <tr>
+                <td><a href={% url "show_project" project.id %}>{{project.name}}</a></td>
+                <td>{{project.tasks.count}}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% endif %}
+   </div>
+  {% endblock content %}
+  {% block footer %}
+  <footer>
+  <div class="left">
+   <p>Copyright  |  Privacy  |  Policies  |  English</p>
+ </div>
+ <div>
+ <p>Support</p>
+ <p>Careers</p>
+ </div>
+ <div>
+ <p>Contact Us</p>
+ <p>Status</p>
+ </div>
+</footer>
+  {% endblock footer %}

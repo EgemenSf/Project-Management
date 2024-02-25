@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+      {% block title %}Tracker{% endblock title %}
+
+      {% block content %}
+    <div class="signup-form">
+
+      <form method = "post">
+        <h1>Signup</h1>
+        {% csrf_token %}
+        {{ signup_form.as_p }}
+        <button>Signup</button>
+      </form>
+    </div>
+      {% endblock %}

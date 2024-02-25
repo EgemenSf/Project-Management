@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+      {% block title %}My Messages{% endblock title %}
+      {% block messages %} {{requests_object.all.count}} {% endblock messages %}
+      {% block welcome %}
+      <h4>👋 Welcome, {{ user.username }}</h4>
+      {% endblock welcome %}
+
+
+      {% block content %}
+    <div class="my-tasks-list">
+       <div class="mainRequest">
+         <h1>Requests</h1>
+    </div>
+    {% for request in requests_object.all %}
+        <div  class="request">
+        <p><div class="red"> {{ request.owner }}</div>&nbsp;<div class="black"> want to have more responsibility at</div>&nbsp; <div class="red">{{ request.request }}</div><div class="black">!</div></p>
+        <p><a id="deleting_request" href={% url "delete_request" request.id %}>Delete Message</a></p>
+        </div>
+        {% endfor %}
+    {% endblock content %}

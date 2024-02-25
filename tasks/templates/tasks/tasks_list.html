@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+      {% block title %}My Tasks{% endblock title %}
+
+      {% block content %}
+      <div class="my-tasks-list">
+       <div class="mainTask">
+       <h1>My Tasks</h1>
+       </div>
+      {% if tasks.count > 0 %}
+      <table class="tasks_table">
+        <thead>
+         <tr>
+            <th>Name</th>
+            <th>Start date</th>
+            <th>Due date</th>
+            <th>Is completed</th>
+            <th>Notes</th>
+         </tr>
+        </thead>
+         <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{task.name}}</td>
+                <td>{{task.start_date}}</td>
+                <td>{{task.due_date}}</td>
+                <td>{{task.is_completed|yesno:"✅,❌"}}</td>
+                <td><a href={% url "show_notes" task.id %}>📋</a></td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% endif %}
+      {% if tasks.count > 0 and tasks.count <= 2 %}
+      <p class="info">You may request more responsibilities! Click <a href={% url "request_task" %}>here</a> to fill out the request form.</p>
+      {% endif %}
+      {% if tasks.count == 0  %}
+      <div class="info">
+      <p>You have no tasks!</p>
+      <p>You may request more responsibilities! Click <a href={% url "request_task" %}>here</a> to fill out the request form.</p>
+      </div>
+      {% endif %}
+   </div>
+    {% endblock content %}
+    {% block footer %}
+    <footer>
+    <div class="left">
+     <p>Copyright  |  Privacy  |  Policies  |  English</p>
+   </div>
+   <div>
+   <p>Support</p>
+   <p>Careers</p>
+   </div>
+   <div>
+   <p>Contact Us</p>
+   <p>Status</p>
+   </div>
+  </footer>
+    {% endblock footer %}

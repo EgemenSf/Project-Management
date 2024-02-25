@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+      {% block title %}My Tasks{% endblock title %}
+
+      {% block content %}
+    <div class="my-tasks-list">
+       <div class="mainNote">
+         <h1>Notes</h1>
+       </div>
+       <div>
+        <p class="new_project_link"><a href={% url "create_note" %}>Add a new note</a></p>
+      </div>
+       <ul id="note">
+        {% for note in task.notes.all %}
+        <div class="note">
+        <li>{{note.note}}</li>
+        </div>
+        <li class="deleting"><a href={% url "delete_note" note.id %}>Delete Note</a>
+        </li>
+        {% endfor %}
+       </ul>
+   </div>
+    {% endblock content %}
